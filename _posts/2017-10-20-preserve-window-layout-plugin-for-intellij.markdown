@@ -5,13 +5,14 @@ date:   2017-10-20 13:29:01 +0200
 categories: dev idea jetbrains plugin java
 excerpt_separator: <!--more-->
 ---
-In this blog post we'll take a look at the development of a plugin for
-IntelliJ Platform that allows us to export & import project's window layout.
+In this blog post we'll take a look at the development of a plugin for the
+IntelliJ Platform that will allow us to export & import project's window layout.
 
 ![Plugin View](https://image.ibb.co/mquG36/plugin_window.jpg)
 
-I wrote this post to address the issues I encountered during development. As of
-current date (Oct 20, 2017), IntelliJ SDK documentation is far from being
+I wrote this post to address the issues I encountered during development of
+such plugin. As of
+current date (Oct 20, 2017), IntelliJ SDK documentation is way far from being
 complete. Below is my collection of findings regarding missing pieces.
 
 <!--more-->
@@ -21,23 +22,33 @@ For initial setup, if you never developed a JetBrains' plugin, I highly
 recommend to go through the [**Getting Started**][sdk-getting-started] section
 of IntelliJ Platform SDK.
 
-You will notice some sections are missing and greyed out. But by taking
-initial setup steps you will get just enough to write your plugin. It is
+You will notice that some sections are missing and greyed out. However, just
+by following these
+initial setup steps you will get just enough to create your own plugin. It is
 important to mention that in order to **debug** a plugin you will need
-the open source version of IntelliJ IDEA - IntelliJ Community Edition -
-checked out and attached to the project.
+the source code of IntelliJ Community Edition checked out and attached to the
+project.
 
 ## Prototyping
-*If you are familiar with plugin development for IntelliJ it is safe to skip
+*If you are familiar with plugin development for IntelliJ, it is safe to skip
 this section.*
+
+To play around a little bit, let's create a very simple plugin with one action.
+Just to test the things and confirm that setup is working.
 
 First thing you might look in to is the `plugin.xml` file that contains the
 basic configuration of your plugin.
 
-After filling in information fields like `<vendor>` or `<version>` we can jump
-straight to the `<actions>` and add nodes for out action. Let's position our
-action in the project view popup menu, the one you that appears when you
-right-click on the project in IDEA.
+After filling in the standard information fields like `<vendor>` or `<version>`
+we can jump straight to the `<actions>` section.  
+Here we can statically position and initialize our actions.
+
+`plugin.xml` is sufficient enough for most needs. However, when doing complex
+stuff, we can initialize actions dynamically in Java.
+
+Let's position our
+action in the Project View popup menu, the one that appears when you
+right-click the project name in IDEA.
 
 **Information tags:**
 {% highlight xml %}
@@ -61,8 +72,13 @@ right-click on the project in IDEA.
 </actions>
 {% endhighlight %}
 
-Obviously, we will need a class responsible for this action. Let's create some
-super simple action that will print project's name to the console. You can
+You can see that we created a unique `id` for this action. A class for the
+should also be specified. A name and description will be `LayoutExporter`. The
+`<add-to-group ...>` tag is the one responsible for tying our action to the
+specific menu in IDEA.
+
+Obviously, we will need a class responsible for this action. Let's make it
+super simple: it will print project's name to the console. You can
 notice that we inherit from `AnAction` class and override the
 `actionPerformed` method.
 {% highlight java %}
@@ -83,17 +99,17 @@ public class LayoutExporter extends AnAction {
 }
 {% endhighlight %}
 
-After we run this code IDEA will spawn a new instance of itself with the
+After we run this code, IDEA will spawn a new instance of itself with our
 plugin installed by default. After we right click on the project (you will need
-a project to be created or open) and invoke context menu. We will see that
-*LayoutExporter* action appeared in this menu. If we click, we'll see a project
-name in the console output.
+a project to be created or open) and invoke context menu, we will see that
+*LayoutExporter* action appeared in this menu. Clicking this action will
+print a project name to the console output.
 
 Of course, we can assign actions to a different menu. For example, in
-`preserve-layout-plugin` actions are assigned to `WindowMenu`.
+`preserve-layout-plugin` actions are added to the `WindowMenu`.
 
 ## Window layout in IDEA
-Stepping into the actual logic we might ask ourselves where is the layout of
+Stepping into the actual logic, we might ask ourselves where is the layout of
 current project stored in IntelliJ IDEA? Turns out it can be stored in [two ways][sdk-about-projects]:
 * `directory based project`: in `workspace.xml` file under `.idea` directory
 * `file based project`: in `.iws` file in a project directory
@@ -108,29 +124,35 @@ To obtain current layout state we obtain an instance of the
 ToolWindowManagerImpl mgr = (ToolWindowManagerImpl) ToolWindowManager.getInstance(e.getProject());
 {% endhighlight %}
 
-Possessing the manager we can now ask it for a current layout. An instance of
-`DesktopLayout` will be returned. Then we will ask `DesktopLayout` to return
+Having the manager, we can now ask it for a current layout. An instance of
+`DesktopLayout` will be returned. Then we cas use `DesktopLayout` to return
 `org.jdom.Element` representation of itself.
 {% highlight java %}
 DesktopLayout dl = mgr.getLayout();
 Element layout = dl.writeExternal("layout");
 {% endhighlight %}
 
+Next step is to save this XML/DOM Element somewhere.
 
 ## File Saver dialog & Saving/writing a file
-**Save File dialog:**
+**File Saving dialog:**
 Somehow, file saving dialog in IntelliJ is invoked in a different way,
 comparing to File Chooser. It is also not mentioned yet in documentation.
-However, you can find a `FileSaverDescriptor` class that when passed to
-`FileChooserFactory` as a parameter will produce a correct dialog.
+However, you can come across a `FileSaverDescriptor` class, which when
+instantiated and passed to
+`FileChooserFactory` as a parameter will produce a correct dialog window.
 
-**Writing File in IntelliJ:**
-Actual data writing is simple but not obvious. It is required to execute disk
-write operations outside of the main thread. To address this IntelliJ provides
-a very convenient `WriteCommandAction` tool.
+**Writing to a File in IntelliJ:**
+Actual data writing is simple, but not obvious. It is required to execute
+"write" operations outside of the main thread. To address this,
+IntelliJ provides
+a very convenient `WriteCommandAction` abstraction.
 
-Besides that, best approach to write a file to disk is thrugh the `VirtualFile`
-abstraction layer.
+Besides that, best approach to write a file to a disk is through
+the `VirtualFile` abstraction layer.
+
+Let's take a look at a composed example of logic required to save an XML to
+a file in IntelliJ.
 
 {% highlight java %}
 // Use XML to covert Element to String
@@ -167,17 +189,18 @@ new WriteCommandAction.Simple(e.getProject()) {
 The best way to select a file in IntelliJ is to use the `FileChooser` dialog
 and the overloaded function `chooseFile` that accepts a callback parameter to
 be called after the file is selected. When using this approach IntelliJ is
-able to invoke native file chooser dialogs on every platform.
+able to invoke native file chooser dialog window on every platform.
 
 {% highlight java %}
 FileChooser.chooseFile(
-        FileChooserDescriptorFactory.createSingleFileDescriptor(),
-        e.getProject(),
-        null,
-        file -> importLayoutFileToProject(file.getCanonicalPath(), e.getProject()));
+    FileChooserDescriptorFactory.createSingleFileDescriptor(),
+    e.getProject(),
+    null,
+    file -> importLayoutFileToProject(file.getCanonicalPath(), e.getProject())
+);
 {% endhighlight %}
 
-Let's implement the callback function.
+Now we need a callback function `importLayoutFileToProject()`.
 {% highlight java %}
 private void importLayoutFileToProject(String path, Project project) {
     if (path == null) return;
@@ -192,8 +215,10 @@ private void importLayoutFileToProject(String path, Project project) {
 }
 {% endhighlight %}
 
-`importLayoutFileToProject` calls 2 helping methods to parse and apply the
-layout to IDE.
+As you can notice,
+`importLayoutFileToProject` makes 2 calls to the helping methods.
+One to parse the imported XML file, and the other to apply the parsed
+layout to IDE. Let's implement them as well.
 {% highlight java %}
 private Element parseLayoutFile(String path) throws Exception {
     Document doc = new SAXBuilder().build(new File(path));
@@ -207,31 +232,32 @@ private void applyLayoutToProject(Element layout, Project project) {
 }
 {% endhighlight %}
 
-Having all that we can now import and export the window layout. However, it
+Having all that we can now import and export window layout's of any project.
+However, it
 would be nice to notify a user about results of the export/import process.
 
 ## IntelliJ Notifications
 Basic notifications are very easy to fire in IntelliJ:
 {% highlight java %}
 Notifications.Bus.notify(new Notification(
-        "Preserve Layout",
-        "Successful Export",
-        "Saved to " + file.getCanonicalPath(),
-        NotificationType.INFORMATION
+    "Preserve Layout",
+    "Successful Export",
+    "Saved to " + file.getCanonicalPath(),
+    NotificationType.INFORMATION
 ), e.getProject());
 {% endhighlight %}
 
-Here we can change the icon
+Here we can change the icon to emphasize the `ERROR` status.
 {% highlight java %}
 Notifications.Bus.notify(new Notification(
-        "Preserve Layout",
-        "Export Failed",
-        ex.getMessage(),
-        NotificationType.ERROR
+    "Preserve Layout",
+    "Export Failed",
+    ex.getMessage(),
+    NotificationType.ERROR
 ), e.getProject());
 {% endhighlight %}
 
-## Support every JetBrains IDE
+## Make plugin runnable in every JetBrains IDE
 Last thing but not the least important. To support every JetBrains IDE it is
 required to specify the `<depends>` tag in `<plugin>`. More details about
 plugin compatibility are available at [SDK docs][sdk-plugin-compativility].
@@ -239,9 +265,15 @@ plugin compatibility are available at [SDK docs][sdk-plugin-compativility].
 <depends>com.intellij.modules.lang</depends>
 {% endhighlight %}
 
+### Special thanks
+I'd like to thank [Alexander Zolotov][azolotov-github] from JetBrains' team
+for the invaluable hints he provided during the work on this project.
+
+
 [plugin-gh]:    (https://github.com/vduseev/preserve-layout-plugin)
 [plugin-page]:  (https://plugins.jetbrains.com/plugin/10097-preserve-layout-plugin)
 [sdk-getting-started]: (https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html)
 [sdk-about-projects]: (https://www.jetbrains.com/help/idea/about-projects.html)
 [sdk-abandon-old]: (https://intellij-support.jetbrains.com/hc/en-us/community/posts/206167769/comments/206288985)
 [sdk-plugin-compativility]: (ttp://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html)
+[azolotov-github]: (https://github.com/zolotov)
