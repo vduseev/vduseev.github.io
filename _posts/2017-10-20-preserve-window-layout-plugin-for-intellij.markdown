@@ -270,10 +270,10 @@ I'd like to thank [Alexander Zolotov][azolotov-github] from JetBrains' team
 for the invaluable hints he provided during the work on this project.
 
 
-[plugin-gh]:    (https://github.com/vduseev/preserve-layout-plugin)
-[plugin-page]:  (https://plugins.jetbrains.com/plugin/10097-preserve-layout-plugin)
-[sdk-getting-started]: (https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html)
-[sdk-about-projects]: (https://www.jetbrains.com/help/idea/about-projects.html)
-[sdk-abandon-old]: (https://intellij-support.jetbrains.com/hc/en-us/community/posts/206167769/comments/206288985)
-[sdk-plugin-compativility]: (ttp://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html)
-[azolotov-github]: (https://github.com/zolotov)
+[plugin-gh]:    https://github.com/vduseev/preserve-layout-plugin
+[plugin-page]:  https://plugins.jetbrains.com/plugin/10097-preserve-layout-plugin
+[sdk-getting-started]: https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started.html
+[sdk-about-projects]: https://www.jetbrains.com/help/idea/about-projects.html
+[sdk-abandon-old]: https://intellij-support.jetbrains.com/hc/en-us/community/posts/206167769/comments/206288985
+[sdk-plugin-compativility]: http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+[azolotov-github]: https://github.com/zolotov
