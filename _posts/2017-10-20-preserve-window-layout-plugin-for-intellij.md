@@ -1,21 +1,31 @@
 ---
-layout: post
 title:  "Developing Preserve Layout Plugin for IntelliJ IDEA"
 date:   2017-10-20 13:29:01 +0200
 categories: dev idea jetbrains plugin java
-excerpt_separator: <!--more-->
 ---
-In this blog post we'll take a look at the development of a plugin for the
-IntelliJ Platform that will allow us to export & import project's window layout.
+There are many IntelliJ plugins out there. Still, existing SDK documentation
+does not cover every development step. Here I describe how a basic IntelliJ
+plugin with menu and import/export functionality can be developed.
 
 ![Plugin View](https://image.ibb.co/mquG36/plugin_window.jpg)
 
+<!--more-->
+
+## Plugin's purpose
+Sometimes, after working on some project for a long enough period, you end up with a
+particular window layout that is convenient for you, e.g., console on the right side,
+source code on the left, debug window at the top.
+
+However, if you open the same project on a different machine, the layout you've so delicately configured will be lost. Same situation will happen if you want to reuse a layout from some other project.
+
+**Preserve Layout Plugin** allows you to export the layout of any
+IntelliJ project and then import it back. Export is done using the XML format.
+
+## About this blog post
 I wrote this post to address the issues I encountered during development of
 such plugin. As of
 current date (Oct 20, 2017), IntelliJ SDK documentation is way far from being
 complete. Below is my collection of findings regarding missing pieces.
-
-<!--more-->
 
 ## Initial Setup
 For initial setup, if you never developed a JetBrains' plugin, I highly
@@ -266,8 +276,8 @@ plugin compatibility are available at [SDK docs][sdk-plugin-compativility].
 {% endhighlight %}
 
 ### Special thanks
-I'd like to thank [Alexander Zolotov][azolotov-github] from JetBrains' team
-for the invaluable hints he provided during the work on this project.
+This plugin has been developed thanks to [Alexander Zolotov][azolotov-github] from JetBrains team.
+He provided tons of invaluable tips and advices during the development of this plugin.
 
 
 [plugin-gh]:    https://github.com/vduseev/preserve-layout-plugin
