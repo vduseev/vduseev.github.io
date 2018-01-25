@@ -5,9 +5,9 @@
 
   <title>
     {% if page.title %}
-      {{ page.title | escape }}
+      {{ page.title | escape }} {{ jekyll.environment }}
     {% else %}
-      {{ site.title | escape }}
+      {{ site.title | escape }} {{ jekyll.environment }}
     {% endif %}
   </title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
