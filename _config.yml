@@ -23,6 +23,8 @@ twitter_username: vduseev
 github_username:  vduseev
 permalink: /:slug/
 google_analytics: true
+disqus:
+  shortname: duseev-com
 
 # Build settings
 markdown: kramdown
@@ -38,6 +40,7 @@ defaults:
     values:
       layout: "post"
       excerpt_separator: <!--more-->
+      comments: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
