@@ -23,8 +23,6 @@ twitter_username: vduseev
 github_username:  vduseev
 permalink: /:slug/
 google_analytics: true
-disqus:
-  shortname: duseev-com
 
 # Build settings
 markdown: kramdown
