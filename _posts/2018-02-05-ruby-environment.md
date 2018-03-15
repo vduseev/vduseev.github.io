@@ -73,64 +73,18 @@ If you proceed with the installation and run the second step from RVM's homepage
 Downloading https://github.com/rvm/rvm/archive/1.29.3.tar.gz
 Downloading https://github.com/rvm/rvm/releases/download/1.29.3/1.29.3.tar.gz.asc
 gpg: Signature made Sun Sep 10 22:59:21 2017 CEST
-gpg:                using RSA key E206C29FBF04FF17
-gpg: Good signature from "Michal Papis (RVM signing) <mpapis@gmail.com>" [unknown]
-gpg:                 aka "Michal Papis <michal.papis@toptal.com>" [unknown]
-gpg:                 aka "[jpeg image of size 5015]" [unknown]
-gpg: WARNING: This key is not certified with a trusted signature!
-gpg:          There is no indication that the signature belongs to the owner.
-Primary key fingerprint: 409B 6B17 96C2 7546 2A17  0311 3804 BB82 D39D C0E3
-     Subkey fingerprint: 62C9 E5F4 DA30 0D94 AC36  166B E206 C29F BF04 FF17
-GPG verified '/Users/vduseev/.rvm/archives/rvm-1.29.3.tgz'
-
+# ...
 Installing RVM to /Users/vduseev/.rvm/
     RVM PATH line found in /Users/vduseev/.mkshrc.
     RVM PATH line not found for Bash or Zsh, rerun this command with '--auto-dotfiles' flag to fix it.
     Adding rvm loading line to /Users/vduseev/.profile /Users/vduseev/.bash_profile /Users/vduseev/.zlogin.
 Installation of RVM in /Users/vduseev/.rvm/ is almost complete:
-
-  * To start using RVM you need to run `source /Users/vduseev/.rvm/scripts/rvm`
-    in all your open shell windows, in rare cases you need to reopen all shell windows.
-Ruby enVironment Manager 1.29.3 (latest) (c) 2009-2017 Michal Papis, Piotr Kuczynski, Wayne E. Seguin
-
+# ...
 Searching for binary rubies, this might take some time.
 No binary rubies available for: osx/10.13/x86_64/ruby-2.4.1.
-Continuing with compilation. Please read 'rvm help mount' to get more information on binary rubies.
-Checking requirements for osx.
-Certificates bundle '/usr/local/etc/openssl@1.1/cert.pem' is already up to date.
-Requirements installation successful.
-Found user configured '-j' flag in 'rvm_make_flags', please note that RVM can detect number of CPU threads and set the '-j' flag automatically if you do not set it.
+# ...
 Installing Ruby from source to: /Users/vduseev/.rvm/rubies/ruby-2.4.1, this may take a while depending on your cpu(s)...
-ruby-2.4.1 - #downloading ruby-2.4.1, this may take a while depending on your connection...
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 11.9M  100 11.9M    0     0  1487k      0  0:00:08  0:00:08 --:--:-- 1736k
-ruby-2.4.1 - #extracting ruby-2.4.1 to /Users/vduseev/.rvm/src/ruby-2.4.1....
-ruby-2.4.1 - #applying patch /Users/vduseev/.rvm/patches/ruby/2.4.1/random_c_using_NR_prefix.patch.
-ruby-2.4.1 - #configuring...................................................................
-ruby-2.4.1 - #post-configuration.
-ruby-2.4.1 - #compiling..............................................................
-ruby-2.4.1 - #installing.......
-ruby-2.4.1 - #making binaries executable..
-ruby-2.4.1 - #downloading rubygems-2.6.14
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  751k  100  751k    0     0   648k      0  0:00:01  0:00:01 --:--:--  648k
-No checksum for downloaded archive, recording checksum in user configuration.
-ruby-2.4.1 - #extracting rubygems-2.6.14....
-ruby-2.4.1 - #removing old rubygems.........
-ruby-2.4.1 - #installing rubygems-2.6.14...........................
-ruby-2.4.1 - #gemset created /Users/vduseev/.rvm/gems/ruby-2.4.1@global
-ruby-2.4.1 - #importing gemset /Users/vduseev/.rvm/gemsets/global.gems...............................................
-ruby-2.4.1 - #generating global wrappers........
-ruby-2.4.1 - #gemset created /Users/vduseev/.rvm/gems/ruby-2.4.1
-ruby-2.4.1 - #importing gemsetfile /Users/vduseev/.rvm/gemsets/default.gems evaluated to empty gem list
-ruby-2.4.1 - #generating default wrappers........
-ruby-2.4.1 - #adjusting #shebangs for (gem irb erb ri rdoc testrb rake).
-Install of ruby-2.4.1 - #complete
-Ruby was built without documentation, to build it run: rvm docs generate-ri
-Creating alias default for ruby-2.4.1...
-
+# ...
   * To start using RVM you need to run `source /Users/vduseev/.rvm/scripts/rvm`
     in all your open shell windows, in rare cases you need to reopen all shell windows.
 {% endhighlight %}
@@ -260,7 +214,7 @@ What I like about {{rbenv}} is it's simplicity and obviousness. It might look es
 
 It bundles greatly with {{bundler}}. In fact, `bundler` takes care of *gem* management completely. Each installation of *Ruby* gets its own installation of bundler. Installation can be configured so that it reuses gems for projects that utilize same Ruby version. Otherwise, gemsets are installed on per-project basis.
 
-`rbenv` works by introducing a a directory full of small executables called `shims` into your path. The path to this directory looks like this: `/Users/vduseev/.rbenv/shims`. Each *shim* is a tiny Bash script that has the exact same name as any Ruby interpreter based tool in your system.
+`rbenv` works by introducing a directory full of small executables called `shims` into your path. The path to this directory looks like this: `/Users/vduseev/.rbenv/shims`. Each *shim* is a tiny Bash script that has the exact same name as any Ruby interpreter based tool in your system.
 
 For example, before calling the actual `Jekyll` executable, a shim will check the `.ruby-version` files and `RBENV_VERSION` environmental variable as well as global `~/.rbenv/version` file if other options did not work. *Shim* will then pull out a correct version of Jekyll according to your specified Ruby version. To be able to do that, the directory with shims is placed first in the `$PATH`. This way any call to `Jekyll` in our case will be at first directed to a *shim*.
 
@@ -323,7 +277,7 @@ bundle install
 
 #### Choose Ruby version for project
 
-The order in which Ruby version is checked by `rbenv` is perfectly described in the docs. It is hard to portray it better:
+The order in which Ruby version is checked by `rbenv` is perfectly described in the docs. It is hard to rephrase it better:
 
 > When you execute a shim, rbenv determines which Ruby version to use by reading it from the following sources, in this order:
 >
