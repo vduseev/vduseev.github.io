@@ -16,9 +16,9 @@ This article gives a quick overview of the popular Ruby environment managers and
 
 ![rbenv-vs-rvm](https://image.ibb.co/nHjNQH/rbenv_vs_rvm.jpg)
 
-*To quickly jump to the environment manager installation click [here](#macos-x-installation).*
-
 <!--more-->
+
+*To quickly jump to the environment manager installation click [here](#macos-x-installation).*
 
 ## Overview
 
@@ -335,7 +335,7 @@ The order in which Ruby version is checked by `rbenv` is perfectly described in 
 >
 > The global `~/.rbenv/version` file. You can modify this file using the rbenv global command. If the global version file is not present, rbenv assumes you want to use the "system" Ruby—i.e. whatever version would be run if rbenv weren't in your path.
 
-## `rbenv` installation on MacOS X
+## Rbenv installation on MacOS X <a name="macos-x-installation"/>
 A proper installation of ruby environment manager on MacOS X requires only few steps. Most importantly, `rbenv` has to be installed through **Homebrew**, and `rbenv init` command has to be called.
 
 ### Step 1
@@ -353,7 +353,7 @@ rbenv init
 
 ### That's it!
 
-Don't forget to call `rbenv rehash` after installing new gems to give rbenv a change to generate new *shims*. 
+Don't forget to call `rbenv rehash` after installing new gems to give rbenv a change to generate new *shims*.
 
 [rbenv_website]: https://github.com/rbenv/rbenv
 [rvm_website]: https://rvm.io/
