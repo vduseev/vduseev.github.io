@@ -23,6 +23,7 @@ twitter_username: vduseev
 github_username:  vduseev
 permalink: /:slug/
 google_analytics: true
+description: Vagiz's Tech Blog
 
 # Build settings
 markdown: kramdown
@@ -39,6 +40,7 @@ defaults:
       layout: "post"
       excerpt_separator: <!--more-->
       comments: true
+      author: vduseev
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
