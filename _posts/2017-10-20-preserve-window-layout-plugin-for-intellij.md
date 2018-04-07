@@ -2,6 +2,8 @@
 title:  "Developing Preserve Layout Plugin for IntelliJ IDEA"
 date:   2017-10-20 13:29:01 +0200
 categories: dev idea jetbrains plugin java
+summary: "How a basic IntelliJ plugin with menu and import/export functionality can be developed"
+image: https://image.ibb.co/mquG36/plugin_window.jpg
 ---
 There are many IntelliJ plugins out there. Still, existing SDK documentation
 does not cover every development step. Here I describe how a basic IntelliJ
