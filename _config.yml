@@ -13,8 +13,8 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Vagiz Duseev
-email: vagiz@duseev.com
+title: Vagiz's Blog About Software
+email:
 # description: > # this means to ignore newlines until "baseurl:"
 #   No description
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -23,7 +23,7 @@ twitter_username: vduseev
 github_username:  vduseev
 permalink: /:slug/
 google_analytics: true
-description: Vagiz's Tech Blog
+description:
 
 # Build settings
 markdown: kramdown

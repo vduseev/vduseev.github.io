@@ -1,7 +1,7 @@
 ---
 title:  "Perfect AWS CLI setup"
 date:   2018-04-07 10:00:00 +0200
-categories: howto aws cli env environment version isolated
+categories: howto aws cli env environment version pipenv pyenv
 summary: "How to set up AWS CLI on a Unix system in a clean and isolated fashion"
 image: https://image.ibb.co/dkesex/aws_cli_thumb.jpg
 ---
