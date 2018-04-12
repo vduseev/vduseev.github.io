@@ -27,7 +27,7 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Valloric/YouCompleteMe'
 " Syntax checker
 Plugin 'vim-syntastic/syntastic'
-' Python backend for "syntastic'
+" Python backend for 'syntastic'
 Plugin 'nvie/vim-flake8'
 " Status bar (powerline)
 Plugin 'vim-airline/vim-airline'
