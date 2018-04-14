@@ -49,9 +49,9 @@ Obviously, there is so much more to Vim than just a list of plugins. Vim's confi
 
 ## VirtualEnv Support
 
-On of the issues one can discover is that Vim by default has no notion of virtual environment you are running in. It counts on the default python interpreter found in the `PATH` environment variable.
+One of the issues you can discover is that by default Vim has no notion of a virtual environment in which you are supposed to run. In order to perform any auto-completion or syntax checking tasks Vim utilizes the default python interpreter found in the `PATH` environment variable.
 
-The known classic way to make Vim aware of project's virtual environment is to check the list of environment variables to detect whether we are running inside a virtual environment and activate it. This approach is documented on the [realpython.com](https://realpython.com/vim-and-python-a-match-made-in-heaven/#virtualenv-support):
+The classic way to make Vim aware of project's virtual environment is to check the list of environment variables to detect whether we are running inside a virtual environment and activate it. This approach is documented on the [realpython.com](https://realpython.com/vim-and-python-a-match-made-in-heaven/#virtualenv-support):
 
 {% highlight vim %}
 "python with virtualenv support
