@@ -13,7 +13,13 @@ I continued with developing mods for the games like *GTA: San Andreas* and *Half
 In 2009 I started learning `C++` and `C#`, and then spent significant time developing all kinds of projects using `C++/Qt/OpenGL` and `.Net` stacks.
 I am still quite comfortable in *C++*, despite the current focus on *Python*.
 
-Throughout my carrer I have been developing cross-platform mobile applications using `Qt/QML` and `Flutter`, setting up Continuous Delivery systems using `Jenkins`, `TeamCity`, `Travis-CI`, `CircleCI`, and `AWS CodeCommit/CodeDeploy`, designing and coding large distributed systems in `Java` and `Python` using `Oracle`, `PostgreSQL`, `Redis` and `ELK` stacks, and leading a team that developed an Entitlement Security System for [State Street Corporation](http://www.statestreet.com/home.html). The latter experience was especially significant as it brought me to an understanding and implementation of quick and reliable project delivery cycles, and thought me important leading and team management lessons.
+Throughout my carrer I have been doing things like
+* Designing and coding large distributed systems in `Java` and `Python`;
+* Building clustered storages using `Oracle`, `PostgreSQL`, `Redis` and `ELK` stack;
+* Setting up Continuous Delivery systems using `Jenkins`, `Docker`, `Ansible`, `TeamCity`, `Travis-CI`, `CircleCI`, and `AWS CodeCommit/CodeDeploy`;
+* Integrating with `AWS`, `GCP`, and other cloud providers; 
+* Developing cross-platform desktop and mobile applications using `Qt/QML` and `Flutter`;
+* Developing 2D/3D game engines in `C++` and `OpenGL`.
 
 I consider myself a reasonably experienced developer with a particular interest in the automation of all stages of software development: design, implementation, testing, and delivery. Topics like *CI/CD*, *Documentation Driven Development*, *Test Driven Development*, *Agile*, or *Project Planning* are a sure way to engage me into an hours-long conversation.
 
@@ -29,17 +35,17 @@ LinkedIn provides a useful [save to PDF](https://www.linkedin.com/help/linkedin/
 
 ### Experience Summary
 
-* [Open-source research and development][github] **(2018-current)**.
-* Customer Success Engineer at [Behavox](http://behavox.com), *New York* **(2017-2018)**.
-* Development Team Lead at [SRI InfoTech](http://sriinfotech.com/), *Gdansk, Poland* **(2016-2018)**.
-* Software Developer at [SRI InfoTech](http://sriinfotech.com/), *Tomsk, Russia* **(2015-2016)**.
-* Retail Store Owner, running my very own store in *Tomsk, Russia*. That was fun. **(2015)**.
-* Junior Software Developer at [Unitsys](http://unitsys.ru), *Tomsk, Russia* **(2014)**.
-* Scientific research at [TPU University's][university] school of Computer Science & Robotics **(2010-2014)**
-  * Structured data depth sensors: Kinect, PrimeSense ([published articles][kinect-article]).
-  * Educational game stations ([NVIDIA article][sand-box-article] about our project [language: *RU*]).
-  * Path finding algorithms ([published article][path-finding-article]).
-  * Robotics competitions.
+* [Open-source research and development][github] `2018 - current`.
+* Customer Success Engineer at [Behavox](http://behavox.com), *New York* `2017 - 2018`.
+* Development Team Lead at [SRI InfoTech](http://sriinfotech.com/), *Gdansk, Poland* `2016 - 2018`.
+* Software Developer at [SRI InfoTech](http://sriinfotech.com/), *Tomsk, Russia* `2015 - 2016`.
+* Retail Store Owner, running my very own store in *Tomsk, Russia*. That was fun. `2015`.
+* Junior Software Developer at [Unitsys](http://unitsys.ru), *Tomsk, Russia* `2014`.
+* Scientific research at [TPU University's][university] school of Computer Science & Robotics `2010 - 2014`:
+  * Structured data depth sensors: Kinect, PrimeSense ([published article 1][kinect-article] and [2](https://www.science-education.ru/en/article/view?id=17554));
+  * Educational game stations ([NVIDIA's article][sand-box-article] about our project);
+  * Path finding algorithms ([published article][path-finding-article]);
+  * Robotics competitions;
   * Embedded systems design summer schools at [TU Dresden](https://tu-dresden.de/).
 
 ## Projects
