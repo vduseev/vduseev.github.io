@@ -13,6 +13,8 @@ I continued with developing mods for the games like *GTA: San Andreas* and *Half
 In 2009 I started learning `C++` and `C#`, and then spent significant time developing all kinds of projects using `C++/Qt/OpenGL` and `.Net` stacks.
 I am still quite comfortable in *C++*, despite the current focus on *Python*.
 
+Throughout my carrer I have been developing cross-platform mobile applications using `Qt/QML` and `Flutter`, setting up Continuous Delivery systems using `Jenkins`, `TeamCity`, `Travis-CI`, `CircleCI`, and `AWS CodeCommit/CodeDeploy`, designing and coding large distributed systems in `Java` and `Python` using `Oracle`, `PostgreSQL`, `Redis` and `ELK` stacks, and leading a team that developed an Entitlement Security System for [State Street Corporation](http://www.statestreet.com/home.html). The latter experience was especially significant as it brought me to an understanding and implementation of quick and reliable project delivery cycles, and thought me important leading and team management lessons.
+
 I consider myself a reasonably experienced developer with a particular interest in the automation of all stages of software development: design, implementation, testing, and delivery. Topics like *CI/CD*, *Documentation Driven Development*, *Test Driven Development*, *Agile*, or *Project Planning* are a sure way to engage me into an hours-long conversation.
 
 I live in [Gdansk, Poland](https://en.wikipedia.org/wiki/Gda%C5%84sk). My home town is *Tomsk, Russia*. For a brief period I also lived in *New York City*. 
