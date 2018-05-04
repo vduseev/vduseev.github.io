@@ -13,43 +13,60 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Vagiz's Blog About Software
+title: Vagiz Duseev
+title_appendix: >-
+  (vduseev) · Personal Blog
+profile_title_appendix: >-
+  (vduseev) ·
+copyright: © Vagiz Duseev 2017–2018
+author: Vagiz Duseev
+first_name: Vagiz
+last_name: Duseev
+image: https://image.ibb.co/e4E6kH/vduseev_blog_photo.jpg
 email:
 # description: > # this means to ignore newlines until "baseurl:"
 #   No description
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://duseev.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://duseev.com" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_account_id: 2172023107
 twitter_username: vduseev
 github_username:  vduseev
 permalink: /:slug/
 google_analytics: true
-description:
+description: >-
+  Vagiz Duseev writing about software development,
+  documentation, Python, and continuous delivery.
+footer_description: >-
+  Blog on software development, documentation,
+  Python, and continuous delivery.
 
 # Build settings
 markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 defaults:
-  -
-    scope:
+  - scope:
       path: ""
       type: "posts"
     values:
       layout: "post"
       excerpt_separator: <!--more-->
       comments: true
-      author: vduseev
+      author: Vagiz Duseev
+      is_post: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - favicon.psd

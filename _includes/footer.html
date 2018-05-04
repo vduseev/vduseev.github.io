@@ -2,24 +2,25 @@
 
   <div class="wrapper">
 
-    {% if site.footer_heading %}
-    <h2 class="footer-heading">{{ site.title | escape }}</h2>
-    {% endif %}
-
     <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
+
+      <div class="footer-col footer-col-3">
         <ul class="contact-list">
           <li>
-            {% if site.author %}
-              {{ site.author | escape }}
+            {% if site.copyright %}
+            {{ site.copyright | escape }}
             {% else %}
-              {{ site.title | escape }}
+            {{ site.title | escape }}
             {% endif %}
-            </li>
-            {% if site.email %}
-            <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-            {% endif %}
+          </li>
+          {% if site.email %}
+          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          {% endif %}
         </ul>
+      </div>
+      
+      <div class="footer-col footer-col-1">
+        <p class="rss-subscribe">Subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
       </div>
 
       <div class="footer-col footer-col-2">
@@ -38,9 +39,6 @@
         </ul>
       </div>
 
-      <div class="footer-col footer-col-3">
-        <p>{{ site.description | escape }}</p>
-      </div>
     </div>
 
   </div>

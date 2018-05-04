@@ -1,12 +1,22 @@
 ---
-layout: page
 title: About Me
 permalink: /about/
+layout: page
+is_profile: true
 ---
-<img src="https://image.ibb.co/e4E6kH/vduseev_blog_photo.jpg" align="right" width="200" style="margin: 0px 20px">
-I'm Vagiz Duseev (Russian: Ваги́з Дусе́ев), a software development engineer.
+<img src="{{ site.image }}" align="right" width="200" style="margin: 0px 20px">
+I'm Vagiz Duseev (Russian: Ваги́з Дусе́ев), a software engineer.
 
-As a **programmer**, I write mostly in Python, but also Java, Ruby, and C++. Here are [my favorite books](/favorite-software-books), and detailed description of [my work environment](/work-environment).
+As a **programmer**, I write mostly in Python, but occasionaly do Java, Ruby, and C++. 
+{% comment %}
+Here are [my favorite books](/favorite-software-books), and detailed description of [my work environment](/work-environment).
+{% endcomment %}
+
+## Resume
+
+My [LinkedIn profile](https://linkedin.com/in/vduseev/). 
+
+## Projects
 
 I'm highly passionate about solving real problems with open-source projects. Check out these **hotties**:
 

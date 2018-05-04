@@ -1,8 +1,8 @@
 ---
 title: "Choosing between Ruby environment managers: rbenv vs. RVM"
 date: 2018-02-05 02:29:01 +0200
-categories: dev ruby environment macos mac os x rvm rbenv rubymine bundler
-summary: "Overview of RVM vs. rbenv: why RVM is bad and rbenv is good, followed by painless setup instructions for MacOS X"
+keywords: ruby environment mac os x rvm rbenv rubymine bundler
+description: "RVM vs. rbenv: why RVM is bad and rbenv is good. Easy setup instructions for MacOS X."
 image: https://image.ibb.co/nHjNQH/rbenv_vs_rvm.jpg
 ---
 {%- assign rbenv = '[`rbenv`][rbenv_website]' -%}
@@ -16,7 +16,7 @@ Using a system's default Ruby interpreter to develop projects and install requir
 
 This article gives a quick overview of the popular Ruby environment managers and provides a concise installation instruction for a painless setup on MacOS X.
 
-![rbenv-vs-rvm](https://image.ibb.co/nHjNQH/rbenv_vs_rvm.jpg)
+![rbenv vs. RVM](https://image.ibb.co/nHjNQH/rbenv_vs_rvm.jpg)
 
 <!--more-->
 
