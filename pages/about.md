@@ -37,7 +37,7 @@ LinkedIn provides a useful [save to PDF](https://www.linkedin.com/help/linkedin/
 
 * [Open-source research and development][github] `2018 - current`.
 * Customer Success Engineer at [Behavox](http://behavox.com), *New York* `2017 - 2018`.
-* Development Team Lead at [SRI InfoTech](http://sriinfotech.com/), *Gdansk, Poland* `2016 - 2018`.
+* Development Team Lead at [SRI InfoTech](http://sriinfotech.com/), *Gdansk, Poland* `2016 - 2017`.
 * Software Developer at [SRI InfoTech](http://sriinfotech.com/), *Tomsk, Russia* `2015 - 2016`.
 * Retail Store Owner, running my very own store in *Tomsk, Russia*. That was fun. `2015`.
 * Junior Software Developer at [Unitsys](http://unitsys.ru), *Tomsk, Russia* `2014`.
