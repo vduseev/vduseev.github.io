@@ -1,0 +1,30 @@
+<!-- All OpenGraph tags and SEO related metadata -->
+<meta name="author" content="{{ site.author }}" />
+{% if page.layout == "home" %}
+<meta property="og:image" content="{{ site.image }}" />
+<meta property="og:title" content="{{ site.title }} {{ site.title_appendix }}" />
+<meta property="og:description" content="{{ site.description }}" />
+{%- else -%}
+<meta property="og:image" content="{{ page.image }}" />
+<meta property="og:title" content="{{ page.title }}" />
+<meta property="og:description" content="{{ page.description }}" />
+{% endif %}
+<meta property="og:url" content="{{ page.url | replace:'index.html','' | absolute_url }}" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="{{ site.title }}" />
+{% if page.is_post %}
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="{{ page.date }}" />
+<meta property="article:modified_time" content="{{ site.time }}" />
+<meta property="article:author" content="{{ page.author }}" />
+{%- assign keywords = page.keywords | split: ' ' -%}
+{% for keyword in keywords %}
+<meta property="article:tag" content="{{ keyword }}" />{% endfor %}
+{%- elsif page.is_profile -%}
+<meta property="og:type" content="profile" />
+<meta property="profile:first_name" content="{{ site.first_name }}" />
+<meta property="profile:last_name" content="{{ site.last_name }}" />
+<meta property="profile:username" content="{{ site.github_username }}" />
+{%- else -%}
+<meta property="og:type" content="website" />
+{% endif %}
