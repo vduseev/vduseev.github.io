@@ -23,6 +23,13 @@
   {% include seo/analytics.html %}
   {%- endif -%}
 
+  <meta name="author" content="{{ site.author }}" />
+  {% if page.layout == "home" %}
+  <meta name="description" content="{{ site.description }}" />
+  {%- else -%}
+  <meta name="description" content="{{ page.description }}" />
+  {% endif %}
+
   {% include seo/opengraph.html %}
 
   {% include seo/twitter.html %}
