@@ -1,6 +1,6 @@
 ---
 title:  "Fastest way to get directory size in Python"
-date:   2018-04-25 22:00:00 +0200
+date:   2018-05-05 22:00:00 +0200
 keywords: howto python benchmark fasters directory size os walk scandir listdir
 description: "Fastest way to get directory size in Python"
 image: https://image.ibb.co/jdwRhS/vim_python_pipenv.jpg
@@ -130,9 +130,9 @@ def os_du_subprocess(path):
     return size
 {% endhighlight %}
 
-### Call a subprocess with `find`, `ls`, and `aws` pipelined
+### Call a subprocess with `find`, `ls`, and `awk` pipelined
 
-It is possible to get an actual directory size using default system tools. If we recursively find all files using `find` command and execute `ls -l` on them, we can feed the results to `awk` tool to sum up bytes in every line and print the final result. But that can't be anywhere as fast as `du -s`.
+It is possible to get an actual directory size using default system tools. If we recursively find all files using `find` command and execute `ls -l` on them, we can feed the results to `awk` tool to sum up the bytes in every line and print the final result. But that can't be anywhere as fast as `du -s`.
 
 Here is the command that will be called in a subprocess:
 
@@ -154,7 +154,7 @@ def os_ls_subprocess(path):
 
 ## Benchmark results
 
-Benchmark creates a test directory with 4 levels of nesting and 5 files in each directory, including root. After a warmup directory size calculation all approaches are tested several times.
+Benchmark creates a test directory with 4 levels of nesting and 5 subdirectoris + 5 files in each directory, including root. After a warmup directory size calculation all approaches are tested several times.
 
 | Rank     |Method | Average (s)    | Best (s)    | Precision |
 |-|-|-|-|-|
