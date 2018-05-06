@@ -45,7 +45,9 @@ Can we take an advantage of the fact that `os.scandir` might already have the si
 
 We will compare `os.scandir` based approach with several modifications of `os.walk` to find out which one will deliver the fastest results. We should also consider system level caching, when, for example, i-nodes get added to the block cache. To exclude block cache warmup we perform an initial run on the directory and then do the real measurement.
 
-Here is a couple of modifications of original *os.walk* based approach. They are not really useful but nevertheless are interesting to consider in the benchmark, just for fun.
+## Other ways to calculate directory size 
+
+Let's consider other options to calculate directory size. Here is a couple of modifications of original *os.walk* based approach. They are not really that useful but nevertheless are interesting to consider in the benchmark, just for fun.
 
 ### Call `os.lstat` explicitly to get file size
 
@@ -65,9 +67,9 @@ def os_walk_lstat(path):
     return size
 {% endhighlight %}
 
-### Sum up sizes of files in each directory using a list comprehension
+### Sum up file sizes in each directory using a list comprehension and `sum` function
 
-This should get us the exact same result as in the [basic *os.walk* implementation](#os_walk_getsize_loop), because list comprehension we are doing is just a shorter way to write down that internal loop in the original version.
+This should get us the exact same result as in the [basic *os.walk* implementation](#os_walk_getsize_loop), because list comprehension we are doing is just a shorter way to rewrite that internal loop in the original version.
 
 <a name = "os_walk_getsize_sum"></a>
 {% highlight python %}
@@ -83,8 +85,10 @@ def os_walk_getsize_sum(path):
 
 ### Call `os.scandir` recursively to calculate directory size
 
-Now let's implement a function that will use `os.scandir` to list the files in the directory. We should take into account that *os.scandir* is not recursive, which means we need to implement recursion ourselves. Also the call to `DirEntry.stat()` can sometimes throw a `FileNotFoundError` exception. I noticed this when testing *os.scandir* in a working directory of some *Ruby* based tool. Turns out the tool has been creating symbolink links to store some of its configurations data. That is not forbidden in Unix, because you can store virtually anything in symlink, and it will have the size equal to the byte size of information stored in it, be it a redirection path or any data you put in it.
-With above mentioned our *scandir* based function would look something like this.
+Now let's implement a function that will use `os.scandir` to iterate over files in the directory. 
+We should take into account that *os.scandir* function is not recursive, which means we need to implement recursion ourselves. 
+
+The call to `DirEntry.stat()` can sometimes throw a `FileNotFoundError` exception. So, with above mentioned, our *scandir* based function would look something like this.
 
 <a name = "os_scandir_recursive"></a>
 {% highlight python %}
@@ -106,30 +110,72 @@ def os_scandir_recursive(path):
     return size
 {% endhighlight %}
 
-One more approach we should try is calling the `du` *(disk usage)* tool in Unix to get the directory size. Obviously, this is a platform dependent solution and we are creating an otherwise unnecessary Python wraper around a simple tool, adding an overhead. Since `du` is an external tool we will use *suprocess* Python module to make this call.
+### Call `du -sh` in a subprocess to calculate directory size
 
-**Call `du -sh` in a subprocess**
+One more approach we should try is calling the `du` *(disk usage)* tool in Unix to get the directory size. Obviously, this is a platform dependent solution and we are creating an otherwise unnecessary Python wraper around a simple tool, adding an overhead. Since `du` is an external tool we will use *subprocess* Python module to make this call.
+
+Even before we run our benchmark, it is quite obvious, that the `du` based approach will produce the fastest results. But are those results reliable enough? 
+
+Well, they are not. The `du` tool calculates disk usage in terms of occupied file system blocks. By default, that block size is equal to 512 bytes. That means that it is highly unlikely that `du` will produce an output equal to the actual size of the data. 
+
+Of course, on some systems `du` has a `-b` flag that instructs the tool to report an actual size with a byte level precision. But introducing that flag will make our solution even more platform dependent.
 
 <a name = "os_du_subprocess"></a>
+{% highlight python %}
+def os_du_subprocess(path):
+    import subprocess
+    size = subprocess.check_output(
+        ['du', '-sh', path]
+    ).split()[0].decode('utf-8')
+    return size
+{% endhighlight %}
 
-```
-2018-05-03 05:20:14,224 dummy.py     INFO Creating test benchmark directory at benchmark_tree
-2018-05-03 05:22:08,279 dummy.py     INFO Priming the system's cache...
-2018-05-03 05:22:36,859 dummy.py    DEBUG Benchmarking iteration #1/10...
-2018-05-03 05:25:02,995 dummy.py    DEBUG Benchmarking iteration #2/10...
-2018-05-03 05:27:27,380 dummy.py    DEBUG Benchmarking iteration #3/10...
-2018-05-03 05:29:57,638 dummy.py    DEBUG Benchmarking iteration #4/10...
-2018-05-03 05:32:22,316 dummy.py    DEBUG Benchmarking iteration #5/10...
-2018-05-03 05:34:46,547 dummy.py    DEBUG Benchmarking iteration #6/10...
-2018-05-03 05:37:10,902 dummy.py    DEBUG Benchmarking iteration #7/10...
-2018-05-03 05:39:34,326 dummy.py    DEBUG Benchmarking iteration #8/10...
-2018-05-03 05:42:07,593 dummy.py    DEBUG Benchmarking iteration #9/10...
-2018-05-03 05:44:55,726 dummy.py    DEBUG Benchmarking iteration #10/10...
-2018-05-03 05:47:34,497 dummy.py     INFO os_walk_lstat method; best: 32.608; average: 34.670
-2018-05-03 05:47:34,497 dummy.py     INFO os_walk_getsize_loop method; best: 32.280; average: 33.608
-2018-05-03 05:47:34,497 dummy.py     INFO os_walk_getsize_sum method; best: 32.521; average: 34.245
-2018-05-03 05:47:34,497 dummy.py     INFO os_scandir_recursive method; best: 30.202; average: 32.375
-2018-05-03 05:47:34,497 dummy.py     INFO os_du_subprocess method; best: 14.282; average: 14.860
-2018-05-03 05:47:34,497 dummy.py     INFO Removing test benchmark directory at benchmark_tree
-```
+### Call a subprocess with `find`, `ls`, and `aws` pipelined
+
+It is possible to get an actual directory size using default system tools. If we recursively find all files using `find` command and execute `ls -l` on them, we can feed the results to `awk` tool to sum up bytes in every line and print the final result. But that can't be anywhere as fast as `du -s`.
+
+Here is the command that will be called in a subprocess:
+
+{% highlight bash %}
+find $MY_PATH -type f -exec ls -l '{}' \; | awk '{sum+=$5} END {print sum}'
+{% endhighlight %}
+
+Transformed into a python function, with a `shell=True` option enabled it looks like this.
+
+{% highlight python %} 
+def os_ls_subprocess(path):
+    import subprocess
+    size = subprocess.check_output(
+        'find ' + path + ' -type f -exec ls -l \'{}\' \; | awk \'{sum+=$5} END {print sum}\'',
+        shell=True
+    ).split()[0].decode('utf-8')
+    return size
+{% endhighlight %}
+
+## Benchmark results
+
+Benchmark creates a test directory with 4 levels of nesting and 5 files in each directory, including root. After a warmup directory size calculation all approaches are tested several times.
+
+| Rank     |Method | Average (s)    | Best (s)    | Precision |
+|-|-|-|-|-|
+| 1 | `du` | 0.028 | 0.025 | **No** |
+| 2 | `os.scandir` (recursive) | 0.067 | 0.064 | Yes |
+| 3 | `os.walk` with `getsize()` | ~0.085 | 0.080 | Yes |
+| 4 | `os.walk` with `lstat` | 0.097 | 0.092 | Yes |
+| 5 | `find` + `ls -l` + `awk` | 48.906 | 46.606 | Yes |
+| | | | |
+
+
+## Conclusion 
+
+As seen from the table above, `du` is the fastest method to obtain a directory size, taking `0.028` seconds on average in this test. If you don't mind a small precision loss and platform dependability, then it's a perfect solution.
+
+A platform independent and fast solution is the recursive `os.scandir` approach. It is about `35%` faster than `os.walk` based solutions. In tests on Mac OS X *scandir* based method demonstrated 26-48% improvement in speed.
+
+Explicit `os.lstat` calls add an overhead roughly equal to 12%, though I can't completely understand the reason behind it.
+
+## Try for yourself
+
+The benchmark is [published on GitHub](https://github.com/vduseev/python-directory-size-benchmark). Feel free to test and use!
+
 

@@ -19,5 +19,7 @@ layout: default
     {{ content }}
   </div>
 
+  {% if jekyll.environment == "production" %}
   {% include disqus_comments.html %}
+  {% endif %}
 </article>
