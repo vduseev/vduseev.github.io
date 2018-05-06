@@ -27,9 +27,10 @@ Below are some open-source software projects I've authored and co-developed. Mos
 
 ## Projects that are no longer maintained
 
-* Interactive sandbox *(C++)*
+* [Interactive sandbox][sandbox] *(C++, OpenGL, GLSL, OpenNI, OpenCV)*
 
-  <center><iframe width="560" height="315" src="https://www.youtube.com/embed/0ytnQUbUD0o?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></center>
+  Educational station with interactive sand, built with Kinect, custom graphics engine, water simulation, and developed as a university project. Sandbox has been presented at CDIO-2013 in MIT, Boston.
+
 
 [s3push]: https://github.com/vduseev/s3push
 [jekyll-dry]: https://github.com/vduseev/jekyll-dry
@@ -37,4 +38,5 @@ Below are some open-source software projects I've authored and co-developed. Mos
 [ipvanish]: https://github.com/vduseev/ipvanish
 [preserve-layout-plugin]: https://github.com/vduseev/preserve-layout-plugin
 [sharmanka]: https://github.com/strgen/sharmanka
+[sandbox]: https://www.youtube.com/watch?v=0ytnQUbUD0o
 
