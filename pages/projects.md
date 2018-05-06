@@ -2,6 +2,7 @@
 title: Projects
 layout: page
 permalink: /projects/
+is_profile: true
 ---
 
 Below are some open-source software projects I've authored and co-developed. Most of them are released under MIT-style license. Enjoy!
@@ -23,6 +24,12 @@ Below are some open-source software projects I've authored and co-developed. Mos
 
 * [`sharmanka`][sharmanka] *(Bash)*
   Bash and Javac based tool that compiles and runs Java sources for you.
+
+## Projects that are no longer maintained
+
+* Interactive sandbox *(C++)*
+
+  <center><iframe width="560" height="315" src="https://www.youtube.com/embed/0ytnQUbUD0o?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></center>
 
 [s3push]: https://github.com/vduseev/s3push
 [jekyll-dry]: https://github.com/vduseev/jekyll-dry
