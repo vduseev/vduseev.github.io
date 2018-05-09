@@ -1,9 +1,11 @@
 ---
-title:  "Make Vim detect Pipenv based Python environment"
-date:   2018-04-12 08:00:00 +0200
+title: "Make Vim detect Pipenv based Python environment"
+date: 2018-04-12 08:00:00 +0200
 keywords: vim python detect pipenv environment ycm youcompleteme virtualenv pipenv .vimrc autocompletion
 description: "Configure Vim to detect Pipenv environment to use with autocompletion tools and syntax checkers."
 image: https://image.ibb.co/jdwRhS/vim_python_pipenv.jpg
+redirect_from: "/vim-python-pipenv/"
+
 ---
 
 **Vim** can be a great IDE. If I could you use just one word to describe it, that word would be "fast". Vim can be easily configured to be a powerful IDE for Python development. However, as times change, as does the official recommended packaging tool for Python – it was **Pip** before, now it's **Pipenv**, a high level wrapper around `pip` and `virtualenv`.

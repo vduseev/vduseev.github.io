@@ -1,9 +1,11 @@
 ---
-title:  "Writing an IntelliJ IDEA plugin to manage window layouts"
-date:   2017-10-20 13:29:01 +0200
+title: "Writing an IntelliJ IDEA plugin to manage window layouts"
+date: 2017-10-20 13:29:01 +0200
 keywords: intellij idea jetbrains plugin java ToolWindowManagerImpl DesktopLayout settings export import
 description: "How to create an IntelliJ plugin with window layout management, menu, notifications, and import/export."
 image: https://image.ibb.co/mquG36/plugin_window.jpg
+redirect_from: "/preserve-window-layout-plugin-for-intellij/"
+
 ---
 There are many IntelliJ plugins out there. Still, existing SDK documentation
 does not cover every development step. Here I describe how a basic IntelliJ

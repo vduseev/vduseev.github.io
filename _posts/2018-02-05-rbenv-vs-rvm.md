@@ -4,6 +4,8 @@ date: 2018-02-05 02:29:01 +0200
 keywords: ruby environment mac os x rvm rbenv rubymine bundler
 description: "RVM vs. rbenv: why RVM is bad and rbenv is good. Easy setup instructions for MacOS X."
 image: https://image.ibb.co/nHjNQH/rbenv_vs_rvm.jpg
+redirect_from: "/ruby-environment/"
+
 ---
 {%- assign rbenv = '[`rbenv`][rbenv_website]' -%}
 {%- assign rvm = '[`RVM`][rvm_website]' -%}

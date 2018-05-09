@@ -19,20 +19,24 @@ title_appendix: >-
 profile_title_appendix: >-
   (vduseev) ·
 copyright: © Vagiz Duseev 2017–2018
+image: https://image.ibb.co/e4E6kH/vduseev_blog_photo.jpg
+
 author: Vagiz Duseev
 first_name: Vagiz
 last_name: Duseev
-image: https://image.ibb.co/e4E6kH/vduseev_blog_photo.jpg
 email:
 # description: > # this means to ignore newlines until "baseurl:"
 #   No description
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://duseev.com" # the base hostname & protocol for your site, e.g. http://example.com
+
 twitter_account_id: 2172023107
 twitter_username: vduseev
 github_username:  vduseev
+
 permalink: /:slug/
 google_analytics: true
+
 description: >-
   Vagiz Duseev writing about software development,
   documentation, Python, and continuous delivery.
@@ -46,6 +50,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-redirect-from
 
 defaults:
   - scope:

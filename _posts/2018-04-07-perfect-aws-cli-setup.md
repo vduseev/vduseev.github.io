@@ -1,9 +1,11 @@
 ---
-title:  "Perfect AWS CLI setup"
-date:   2018-04-07 10:00:00 +0200
+title: "Perfect AWS CLI setup"
+date: 2018-04-07 10:00:00 +0200
 keywords: howto aws cli env environment version pipenv pyenv isolated installation
 description: "How to perfectly set up AWS CLI on a Unix system in a clean and isolated fashion using pyenv and pipenv"
 image: https://image.ibb.co/dkesex/aws_cli_thumb.jpg
+redirect_from: "/aws-cli-isolated/"
+
 ---
 
 I deploy to AWS a lot. I believe it's fine to use AWS GUI when you explore things, but otherwise it is better to write scripts to achieve results. Be it Bash scripts that use AWS CLI or Python scripts that use boto3 library. Writing scripts guarantees that when you forget how to properly deploy a cluster of ElasticSearch instances and shards you will just use your script instead of researching AWS documentation again. AWS CLI is a Python library installed via pip.
