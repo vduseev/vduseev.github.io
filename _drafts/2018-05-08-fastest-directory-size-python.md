@@ -8,13 +8,11 @@ image: https://image.ibb.co/jdwRhS/vim_python_pipenv.jpg
 
 > What is the fastest way to calculate directory size in Pyhton?
 
-Is it better to do `os.walk` or to retreat to the custom recursive function based on `os.scandir`? Or maybe a platform dependent solution such as `du -s` on Unix is the best? Let's benchmark each approach and find out.
-
-**Note**: `os.scandir` has been included into Python 3.5 and replaced `os.listdir` in the standard `os.walk` implementation. 
+Is it better to do `os.walk` or retreat to the custom recursive function based on `os.scandir`? Or maybe a platform dependent solution such as `du -s` on Unix is the best? Let's benchmark each approach and find out.
 
 <!--more-->
 
-I have stumbled upon this question while I was working on [`s3push`](https://github.com/vduseev/s3push) project that facilitates directory uploading to AWS S3 storage. One of the [features](https://github.com/vduseev/s3push/issues/12) present in the tool is to display a progress bar in the terminal while uploading the files to S3. In order to implement this, one must calculate the total size of the files before uploading them. Sounds easy, right? 
+I have stumbled upon this question while I was working on [`s3push`](https://github.com/vduseev/s3push) project that facilitates directory uploading to AWS S3 storage. One of the [features](https://github.com/vduseev/s3push/issues/12) present in the tool is to display a progress bar in the terminal while uploading the files to S3. In order to implement this, one must calculate the total size of the files before uploading them. The problem here is that traversal of the tree must be done two times. This can be implemented using standard *os.walk*. Sounds easy, right? 
 
 <a name = "os_walk_getsize_loop"></a>
 {% highlight python %}
@@ -31,27 +29,31 @@ def os_walk_getsize_loop(path):
     return size
 {% endhighlight %}
 
-However, that implies that the tree has to be traversed two times: first, for the total size calculation, and then a second time, during the actual process of file uploading. Which brings up a question: *Can we speed up a directory size calculation?*
+The tree must be traversed two times: first, for the total size calculation, and then a second time, during the actual process of file uploading. Which brings up a question: *Can we speed up the directory size calculation process?*
+
+## Story of *os.scandir* in Python
 
 Previously, before version 3.5, Python has been using `os.listdir` inside the `os.walk` function, and it made `os.walk` pretty slow to the point where people started questioning the nature of Python's slow directory size calculation (see this amazing discusssion on [StackOverflow.com](https://stackoverflow.com/questions/2485719/very-quickly-getting-total-size-of-folder/)). 
-The reason behind it is that `os.listdir` calls OS functions to get the names of the files in the directory, and then separately makes additional calls to determine whether the file is a directory or a file. 
+The reason behind it is that `os.listdir` calls OS functions to get the names of the files in the directory, and then separately makes additional system calls to determine whether particular record represents a directory or a file. 
 
 [Ben Hoyt](http://benhoyt.com/) investigated this and wrote the [`scandir`](https://pypi.org/project/scandir/) package which is now included into core Python as a part of the `os` module. I highly recommend reading the [full story](http://benhoyt.com/writings/scandir/) behind creation and development of *os.scandir* as a demonstration of what improving a piece of Python could look like and how much effort it takes to get the improvement accepted into the Python codebase.
 
 As Ben [points out](http://benhoyt.com/writings/scandir/#why-is-scandir-needed), these days, Windows, Linux, and Mac actually return the file type info along with the list of files in the directory. In contrast to the *listdir* where file type was requested through a separate `stat` system call. 
 Moreover, Windows even returns the corresponding sizes of the files. `os.scandir` takes advantage of this fact; thus, it replaced *listdir* in *os.walk* function as a more efficient solution.
 
-Can we take an advantage of the fact that `os.scandir` might already have the sizes of the files without making additional system calls? Even though both `os.walk` and `os.scandir` are now basically the same with sheer difference between them being the recursive nature of *os.walk*, we can still try. However, we can't obtain file sizes from results provided by *os.walk*, which yileds a tuple consisting of current invistigated path, list of directories in it, and a list of file names in it. In contrast, *os.scandir* yields `DirEntry` objects that contain a lot of additional information.
+Can we gain additional speed from the fact that `os.scandir` might already have the sizes of the files without making additional system calls? Even though both `os.walk` and `os.scandir` are now basically the same with sheer difference between them being the recursive nature of *os.walk*, we can still try. However, we can't obtain file sizes from results provided by *os.walk*, which yields a tuple consisting of current invistigated path, list of directories in it, and a list of file names in it. Contrary to that, *os.scandir* yields `DirEntry` objects that contain a lot of additional information.
 
-We will compare `os.scandir` based approach with several modifications of `os.walk` to find out which one will deliver the fastest results. We should also consider system level caching, when, for example, i-nodes get added to the block cache. To exclude block cache warmup we perform an initial run on the directory and then do the real measurement.
+## Benchmark approach
 
-## Other ways to calculate directory size 
+We will compare `os.scandir` based approach with several modifications of `os.walk` and with a set of system tools such as `du`, wrapped in a subprocess call, to find out which one will deliver the fastest results. We should also consider system level caching, when, for example, i-nodes get added to the block cache. To exclude block cache warmup we perform an initial run on the directory and then do the real measurement.
 
-Let's consider other options to calculate directory size. Here is a couple of modifications of original *os.walk* based approach. They are not really that useful but nevertheless are interesting to consider in the benchmark, just for fun.
+## Ways to calculate directory size
+
+Let's consider other options to calculate directory size. Here is a couple of modifications of original *os.walk* based approach. They are not really all that useful but, nevertheless, are interesting to consider in the benchmark, just for fun.
 
 ### Call `os.lstat` explicitly to get file size
 
-Here we are making an explicit call to operating system's `stat` function through `os.lstat()` method.
+Here, we are making an explicit call to operating system's `stat` function through `os.lstat()` method.
 
 <a name = "os_walk_lstat"></a>
 {% highlight python %}
@@ -69,7 +71,7 @@ def os_walk_lstat(path):
 
 ### Sum up file sizes in each directory using a list comprehension and `sum` function
 
-This should get us the exact same result as in the [basic *os.walk* implementation](#os_walk_getsize_loop), because list comprehension we are doing is just a shorter way to rewrite that internal loop in the original version.
+This should get us the exact same result as in the [basic *os.walk* implementation](#os_walk_getsize_loop), because the list comprehension that we are doing is just a shorter way to rewrite that internal loop in the original version.
 
 <a name = "os_walk_getsize_sum"></a>
 {% highlight python %}
@@ -125,7 +127,7 @@ Of course, on some systems `du` has a `-b` flag that instructs the tool to repor
 def os_du_subprocess(path):
     import subprocess
     size = subprocess.check_output(
-        ['du', '-sh', path]
+        ['du', '-s', path]
     ).split()[0].decode('utf-8')
     return size
 {% endhighlight %}
@@ -140,7 +142,7 @@ Here is the command that will be called in a subprocess:
 find $MY_PATH -type f -exec ls -l '{}' \; | awk '{sum+=$5} END {print sum}'
 {% endhighlight %}
 
-Transformed into a python function, with a `shell=True` option enabled it looks like this.
+Transformed into a python function, with a `shell=True` option enabled, it looks like this.
 
 {% highlight python %} 
 def os_ls_subprocess(path):
@@ -152,8 +154,53 @@ def os_ls_subprocess(path):
     return size
 {% endhighlight %}
 
+### Call a subprocess with `find`, `xargs cat`, and `wc -c` pipelined
+
+Here is another approach to directory size measurement using system tools. This time let's pipeline a command with `wc -c` and `xargs cat`. The command that will be invoked:
+
+{% highlight bash %}
+find $MY_PATH -type f | xargs cat | wc -c
+{% endhighlight %}
+
+And the Python function to invoke this:
+
+{% highlight python %}
+def find_xargs_cat_wc(path):
+    cmd = ('find ' + path + ' -type f | '
+           'xargs cat | '
+           'wc -c')
+    import subprocess
+    size = subprocess.check_output(
+        cmd, shell=True
+    ).split()[0].decode('utf-8').strip()
+    return int(size)
+{% endhighlight %}
+
+### Call a subprocess with `find`, `while`, `cat`, and `wc -c` pipelined
+
+Last approach uses the following command:
+
+{% highlight bash %}
+find $MY_PATH -type f | while read s; do cat $s; done | wc -c
+{% endhighlight %}
+
+The function to call this has the same structure as the previous one.
+
+{% highlight python %}
+def find_while_read_cat_wc(path):
+    cmd = ('find ' + path + ' -type f | '
+           'while read s; do cat $s; done | '
+           'wc -c')
+    import subprocess
+    size = subprocess.check_output(
+        cmd, shell=True
+    ).split()[0].decode('utf-8').strip()
+    return int(size)
+{% endhighlight %}
+
 ## Benchmark results
 
+Benchmark was tested on 
 Benchmark creates a test directory with 4 levels of nesting and 5 subdirectoris + 5 files in each directory, including root. After a warmup directory size calculation all approaches are tested several times.
 
 | Rank     |Method | Average (s)    | Best (s)    | Precision |
