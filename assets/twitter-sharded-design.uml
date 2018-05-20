@@ -1,0 +1,22 @@
+@startuml
+
+node "App cluster" as app_cluster {
+  artifact "Backend App" as app
+}
+
+node "Tweet shards" as tweets {
+  database shard_1
+  database shard_2
+  database shard_3
+}
+
+node "Index shards" as index {
+  database index_1
+  database index_2
+  database index_3
+}
+
+app_cluster <--> tweets
+app_cluster <--> index
+
+@enduml

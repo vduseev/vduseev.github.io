@@ -1,0 +1,24 @@
+@startuml
+
+object users {
+  id
+  name
+}
+
+object followers {
+  subscription_id
+  user_id
+  follower_id
+}
+
+object tweets {
+  tweet_id
+  user_id
+  text
+}
+
+users *--* followers
+
+users --* tweets
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+
+node "Backend app" as backend {
+  artifact Backend
+}
+
+node "Load Balancer" as load_balancer
+
+node "Redis Cluster" as redis {
+  database redis_1
+  database redis_2
+  database redis_3
+}
+
+node "MySQL Cluster (Followers)" as mysql {
+  database MySQL_1
+  database MySQL_2
+}
+
+backend <--> load_balancer
+backend <--> mysql
+load_balancer <--> redis
+
+@enduml
