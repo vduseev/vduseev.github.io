@@ -13,7 +13,7 @@ I continued with developing mods for the games like *GTA: San Andreas* and *Half
 In 2009 I started learning `C++` and `C#`, and then spent significant time developing all kinds of projects using `C++/Qt/OpenGL` and `.Net` stacks.
 I am still quite comfortable in *C++*, despite the current focus on *Python*.
 
-Throughout my carrer I have been doing things like
+Throughout my career I have been doing things like
 * Designing and coding large distributed systems in `Java` and `Python`;
 * Building clustered storages using `Oracle`, `PostgreSQL`, `Redis` and `ELK` stack;
 * Setting up Continuous Delivery systems using `Jenkins`, `Docker`, `Ansible`, `TeamCity`, `Travis-CI`, `CircleCI`, and `AWS CodeCommit/CodeDeploy`;
