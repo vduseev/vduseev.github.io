@@ -1,14 +1,16 @@
 ---
 title:  "Designing Twitter"
-date:   2018-05-22 22:00:00 +0200
-keywords: howto python benchmark fasters directory size os walk scandir listdir
-description: "Review of approaches to designing a system like Twitter, Tumblr, or Instagram"
-image: https://image.ibb.co/jdwRhS/vim_python_pipenv.jpg
+date:   2018-06-05 22:00:00 +0200
+keywords: twitter tumblr instagram design architecture redis distributed timeline
+description: "Review of approaches to designing a system like Twitter, Tumblr, or Instagram. Using a relational database, sharded indexes, and Redis."
+image: https://image.ibb.co/doDhso/twitter_architecture.jpg
 ---
 
-## Summary
+![Designing Twitter Architecture]({{ page.image }})
 
-This article describes different approaches to designing a system like Twitter.
+This article describes several different approaches to designing a system like Twitter. The kind of task you could be asked to perform during a technical interview. Each presented architecture describes the system from a very high level, focusing on the main idea of the optimization or design rather than small details.
+
+<!--more-->
 
 ## Table of contents
 
@@ -18,25 +20,23 @@ This article describes different approaches to designing a system like Twitter.
   * <a href="#sharded-relational-database">Sharded relational database</a>
   * <a href="#pre-calculated-feeds">Pre-calculated feeds</a>
 
-<!--more-->
-
 ## Features
 
 First of all, let's specify a list of features that will be present in the system.
 Typically, a system like Twitter consists of user accounts that can follow each other and something called feed/dashboard, or timeline, a place where all posts made by user's follow-pull are gathered and rendered in a reversed time manner.
 
-* Tweet
+* **Tweet**
 
   Each user is able to tweet or post a simple textual message. For the sake of simplicity we don't consider retweets, likes, or comments.
 
-* Follow
+* **Follow**
 
   Any user can follow any other user. When user follows someone else a subscription is created. Whenever followed user is posting something, the follower will see these tweets in his feed.
 
-* Feed
+* **Feed**
 
   Collection of tweets made by followed users organized in a time-reversed fashion. 
-  An important addition to mention is that a system like twitter prefers eventual consistence over immediate conistency. It is better to get fast read rather than immediate write.
+  An important addition to mention is that a system like twitter prefers eventual consistence over immediate consistency. It is better to get fast read rather than immediate write.
 
 ## Architectural approaches
 
@@ -51,11 +51,11 @@ When taking the most direct approach, the obvious thing is to have a set of rela
 *Users* table is nothing but a storage of active/registered users. The *Followers* table stores a row for each existing subscription of one user to another. This will be required when calculating the feed for each user.
 Finally, *Tweets* table contains all tweets with a foreign key specifying the author of each tweet.
 
-![twitter-database-design](/assets/twitter-database-design.svg)
+![Twitter Database Design](https://image.ibb.co/jmm4No/twitter_database_design.png)
 
 #### Upsides &#x1F44D;
 
-The obvious strong side of this approach is its undisputable simplicity. Just one database to manage, several tables, everything is stored in one place. As less overhead as possible. To be fair, many start-ups rely on this exact approach when buidling their product at the very beginning. Tumblr is a good example of that.
+The obvious strong side of this approach is its indisputable simplicity. Just one database to manage, several tables, everything is stored in one place. As less overhead as possible. To be fair, many start-ups rely on this exact approach when building their product at the very beginning. Tumblr is a good example of that.
 
 #### Downsides &#x1F44E;
 
@@ -72,12 +72,12 @@ You could imagine that the `select` statement to calculate the timeline of each 
 
 #### Description
 
-A different approach could be evolved out of an original single database design. It is possible to significantly improve scalability of the database in this particlular case by shadring actual tweet storage and indexes.
+A different approach could be evolved out of an original single database design. It is possible to significantly improve scalability of the database in this particular case by shadring actual tweet storage and indexes.
 Since the feed is based on chronologically ordered collection of tweets, the sharding might be done on a time basis. 
 Separating database indexes from the actual storage is an attempt to speed up query execution.
 There would still be one master in each of the sections. However, by introducing slave replicas and shards we can significantly improve response times.
 
-![twitter-sharded-design](/assets/twitter-sharded-design.svg)
+![Twitter Sharded Design](https://image.ibb.co/npQaTT/twitter_sharded_design.png)
 
 #### Upsides &#x1F44D;
 
@@ -97,10 +97,10 @@ A design like this would eventually hit the read operation ceiling when talking 
 
 #### Description
 
-If we bring the idea of trading off write speeds for read speed to its absolute, we sould eventually take a look at the approach that pre-calculates the feeds (also called materialized timelines). The immediate consistency of the write operation is traded off for a faster feed read operation for each user.
+If we bring the idea of trading off write speeds for read speed to its absolute, we should eventually take a look at the approach that pre-calculates the feeds (also called materialized timelines). The immediate consistency of the write operation is traded off for a faster feed read operation for each user.
 In order to implement this, each time someone posts a new tweet the timeline of each user must be updated.
 It seems obvious that some caching solution is in order here.
-Memcached might be an option, but it stores the data in a `blob` format. Binary *blob* format will require us to pull out the whole timeline of a particluar user, append a new tweet to it, and then put it pack to the cache.
+Memcached might be an option, but it stores the data in a `blob` format. Binary *blob* format will require us to pull out the whole timeline of a particular user, append a new tweet to it, and then put it pack to the cache.
 
 Contrary, Redis has a notion of list data structure, which allows us to append tweets without extracting whole timeline from the cache.
 With this approach, each time some user requests a feed, a pre-calculated ready-to-read feed will be obtained from the Redis.
@@ -109,7 +109,7 @@ To make things even better, it would be nice to introduce a **load balancer** wh
 
 The backend application would request a list of followers whenever some user posts a new tweet. Based on this list the backed will add new tweet to all of the required lists in Redis.
 
-![twitter-materialized-view](/assets/twitter-materialized-view.svg)
+![Twitter Materialized View](https://image.ibb.co/gPnYF8/twitter_materialized_view.png)
 
 #### Upsides &#x1F44D;
 
@@ -117,15 +117,15 @@ The time complexity of read operation is *O(1)*. Write complexity, however, is *
 
 #### Downsides &#x1F44E;
 
-The amount of stored data might become quite great in size. Redis will require a replication in order to keep serving requests even when one intance with pre-calculated feed dies.
-Since Redis is an in-memory database, each instance would also need a great amount of RAM to operate properly, which is an obivous price we pay for an instant access to user's timeline.
+The amount of stored data might become quite great in size. Redis will require a replication in order to keep serving requests even when one instance with pre-calculated feed dies.
+Since Redis is an in-memory database, each instance would also need a great amount of RAM to operate properly, which is an obvious price we pay for an instant access to user's timeline.
 
 Another dangerous case is presented by the users with millions of followers. Any update they post to their followers must be written to millions of Redis lists for pre-calculated timelines.
 When taking replicas into account, this could take an unpredictable amount of time.
 
 A possible solution to that is to keep the tweets of popular users somewhere separate and avoid the whole on-write timeline update story completely. 
 Instead, whenever any of their followers requests a tweet feed, the backend app will manually merge the tweets of the popular user inside the timeline. 
-Doing this in runtime during read operation is obviously not a *O(1)* complexity. However, this prevents us from generating a write avalance each time they post something.
+Doing this in runtime during read operation is obviously not a *O(1)* complexity. However, this prevents us from generating a write avalanche each time they post something.
 
 #### Technologies
 
