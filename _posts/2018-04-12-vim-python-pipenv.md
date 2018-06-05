@@ -3,14 +3,14 @@ title: "Make Vim detect Pipenv based Python environment"
 date: 2018-04-12 08:00:00 +0200
 keywords: vim python detect pipenv environment ycm youcompleteme virtualenv pipenv .vimrc autocompletion
 description: "Configure Vim to detect Pipenv environment to use with autocompletion tools and syntax checkers."
-image: https://image.ibb.co/jdwRhS/vim_python_pipenv.jpg
+image: https://image.ibb.co/mu5ENo/vim_python_pipenv.jpg
 redirect_from: "/vim-python-pipenv/"
 
 ---
 
 **Vim** can be a great IDE. If I could you use just one word to describe it, that word would be "fast". Vim can be easily configured to be a powerful IDE for Python development. However, as times change, as does the official recommended packaging tool for Python – it was **Pip** before, now it's **Pipenv**, a high level wrapper around `pip` and `virtualenv`.
 
-![Vim detects Pipenv python environment config](https://image.ibb.co/jdwRhS/vim_python_pipenv.jpg)
+![Vim detects Pipenv python environment config]({{ page.image }})
 
 Setting up a proper integration between Vim and Pipenv may seem like a cumbersome task. It entirely depends on what you want to achieve. This article focuses on integration between **Vim**, **Pipenv**, and **YouCompleteMe** – a fast, fuzzy-search code completion engine for Vim. But some of the options described in the article are suitable for other setups as well.
 
@@ -109,7 +109,7 @@ In this case `pyenv --venv` returns full path to the virtual environment utilize
 
 {% highlight bash %}
 $ pipenv --venv
-/Users/vduseev/.local/share/virtualenvs/.aws-MRQhgJfv
+/Users/user/.local/share/virtualenvs/.aws-MRQhgJfv
 {% endhighlight %}
 
 ## Making it work in `.vimrc`

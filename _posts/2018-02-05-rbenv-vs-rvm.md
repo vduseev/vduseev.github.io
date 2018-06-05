@@ -3,7 +3,7 @@ title: "Choosing between Ruby environment managers: rbenv vs. RVM"
 date: 2018-02-05 02:29:01 +0200
 keywords: ruby environment mac os x rvm rbenv rubymine bundler
 description: "RVM vs. rbenv: why RVM is bad and rbenv is good. Easy setup instructions for MacOS X."
-image: https://image.ibb.co/nHjNQH/rbenv_vs_rvm.jpg
+image: https://image.ibb.co/hebX8T/rbenv_vs_rvm.jpg
 redirect_from: 
   - /ruby-environment/
   - /articles/rbenv-vs-rmv/
@@ -21,7 +21,7 @@ Using a system's default Ruby interpreter to develop projects and install requir
 
 This article gives a quick overview of the popular Ruby environment managers and provides a concise installation instruction for a painless setup on MacOS X.
 
-![rbenv vs. RVM](https://image.ibb.co/nHjNQH/rbenv_vs_rvm.jpg)
+![rbenv vs. RVM]({{ page.image }})
 
 <!--more-->
 
@@ -31,7 +31,7 @@ This article gives a quick overview of the popular Ruby environment managers and
 
 There are two main options for environment management when it comes to Ruby. First one is the {{rvm}}. RVM was the first decent environment manager which could manage multiple interpreters and per-project based {{gemsets}}, it is still very popular among Ruby developers. Although, not only the installation process of it is somewhat unusual for these days, but is also messes up with a lot of things in the system in a magic and incomprehensible way. For instance, {{rvm}} ensures that a correct version of Ruby will be utilized in a project by replacing original `cd` command in `*nix` systems, which is way too much for nothing else but Ruby environment manager.
 
-The other known option is called {{rbenv}}. It's a much more simpler and relieable solution, and it does not mess the system up, keeping everything local and manageable.
+The other known option is called {{rbenv}}. It's a much more simpler and reliable solution, and it does not mess the system up, keeping everything local and manageable.
 
 ### RVM and its downsides
 
@@ -81,18 +81,18 @@ Downloading https://github.com/rvm/rvm/archive/1.29.3.tar.gz
 Downloading https://github.com/rvm/rvm/releases/download/1.29.3/1.29.3.tar.gz.asc
 gpg: Signature made Sun Sep 10 22:59:21 2017 CEST
 # ...
-Installing RVM to /Users/vduseev/.rvm/
-    RVM PATH line found in /Users/vduseev/.mkshrc.
+Installing RVM to /Users/user/.rvm/
+    RVM PATH line found in /Users/user/.mkshrc.
     RVM PATH line not found for Bash or Zsh, rerun this command with '--auto-dotfiles' flag to fix it.
-    Adding rvm loading line to /Users/vduseev/.profile /Users/vduseev/.bash_profile /Users/vduseev/.zlogin.
-Installation of RVM in /Users/vduseev/.rvm/ is almost complete:
+    Adding rvm loading line to /Users/user/.profile /Users/user/.bash_profile /Users/user/.zlogin.
+Installation of RVM in /Users/user/.rvm/ is almost complete:
 # ...
 Searching for binary rubies, this might take some time.
 No binary rubies available for: osx/10.13/x86_64/ruby-2.4.1.
 # ...
-Installing Ruby from source to: /Users/vduseev/.rvm/rubies/ruby-2.4.1, this may take a while depending on your cpu(s)...
+Installing Ruby from source to: /Users/user/.rvm/rubies/ruby-2.4.1, this may take a while depending on your cpu(s)...
 # ...
-  * To start using RVM you need to run `source /Users/vduseev/.rvm/scripts/rvm`
+  * To start using RVM you need to run `source /Users/user/.rvm/scripts/rvm`
     in all your open shell windows, in rare cases you need to reopen all shell windows.
 {% endhighlight %}
 
@@ -131,7 +131,7 @@ Some size stats before removing the directory
 #    e.g., Byte, Kilobyte, Megabyte, Gigabyte, Terabyte and Petabyte.
 du -sh ~/.rvm
 # Result:
-181M	/Users/vduseev/.rvm
+181M	/Users/user/.rvm
 {% endhighlight %}
 
 The pure default installation of {{rvm}} on MacOS takes 181 Mb.
@@ -221,7 +221,7 @@ What I like about {{rbenv}} is it's simplicity and obviousness. It might look es
 
 It bundles greatly with {{bundler}}. In fact, `bundler` takes care of *gem* management completely. Each installation of *Ruby* gets its own installation of bundler. Installation can be configured so that it reuses gems for projects that utilize same Ruby version. Otherwise, gemsets are installed on per-project basis.
 
-`rbenv` works by introducing a directory full of small executables called `shims` into your path. The path to this directory looks like this: `/Users/vduseev/.rbenv/shims`. Each *shim* is a tiny Bash script that has the exact same name as any Ruby interpreter based tool in your system.
+`rbenv` works by introducing a directory full of small executables called `shims` into your path. The path to this directory looks like this: `/Users/user/.rbenv/shims`. Each *shim* is a tiny Bash script that has the exact same name as any Ruby interpreter based tool in your system.
 
 For example, before calling the actual `Jekyll` executable, a shim will check the `.ruby-version` files and `RBENV_VERSION` environmental variable as well as global `~/.rbenv/version` file if other options did not work. *Shim* will then pull out a correct version of Jekyll according to your specified Ruby version. To be able to do that, the directory with shims is placed first in the `$PATH`. This way any call to `Jekyll` in our case will be at first directed to a *shim*.
 
