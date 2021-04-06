@@ -4,58 +4,93 @@ permalink: /about/
 layout: page
 is_profile: true
 ---
+
 <img src="{{ site.image }}" align="right" width="140" style="margin: 0px 20px">
-I'm Vagiz Duseev (Russian: Ваги́з Дусе́ев), a software engineer.
 
-I write mostly in `Python`, but also speak `SQL`, `C++`, `Java`, `Ruby`, `C#`, and `bash`. I started coding when I was 11 years old with the help of the mentors in the local youth center. 
-My first project was a [Battle City][battle-city] clone written using Borland Delphi 7. 
-I continued with developing mods for the games like *GTA: San Andreas* and *Half-Life: 2*. 
-In 2009 I started learning `C++` and `C#`, and then spent significant time developing all kinds of projects using `C++/Qt/OpenGL` and `.Net` stacks.
-I am still quite comfortable in *C++*, despite the current focus on *Python*.
+Hi, I'm Vagiz Duseev (Russian: Ваги́з Дусе́ев).
 
-Throughout my career I have been doing things like
-* Designing and coding large distributed systems in `Java` and `Python`;
-* Building clustered storages using `Oracle`, `PostgreSQL`, `Redis` and `ELK` stack;
-* Setting up Continuous Delivery systems using `Jenkins`, `Docker`, `Ansible`, `TeamCity`, `Travis-CI`, `CircleCI`, and `AWS CodeCommit/CodeDeploy`;
-* Integrating with `AWS`, `GCP`, and other cloud providers; 
-* Developing cross-platform desktop and mobile applications using `Qt/QML` and `Flutter`;
-* Developing 2D/3D game engines in `C++` and `OpenGL`.
-
-I consider myself a reasonably experienced developer with a particular interest in the automation of all stages of software development: design, implementation, testing, and delivery. Topics like *CI/CD*, *Documentation Driven Development*, *Test Driven Development*, *Agile*, or *Project Planning* are a sure way to engage me into an hours-long conversation.
-
-I live in [Gdansk, Poland](https://en.wikipedia.org/wiki/Gda%C5%84sk). My home town is *Tomsk, Russia*. For a brief period I also lived in *New York City*. 
-{% comment %}
-Here are [my favorite books](/favorite-software-books), and detailed description of [my work environment](/work-environment).
-{% endcomment %}
-
-## Resume
-
-I keep my [LinkedIn profile](https://linkedin.com/in/vduseev/) updated to represent my work experience and skills. 
-LinkedIn provides a useful [save to PDF](https://www.linkedin.com/help/linkedin/answer/4281/printing-a-profile?lang=en) feature, if you ever need a copy of my resume in a printed format.
-
-### Experience Summary
-
-* [Open-source research and development][github] `2018 - current`.
-* Customer Success Engineer at [Behavox](http://behavox.com), *New York* `2017 - 2018`.
-* Development Team Lead at [SRI InfoTech](http://sriinfotech.com/), *Gdansk, Poland* `2016 - 2017`.
-* Software Developer at [SRI InfoTech](http://sriinfotech.com/), *Tomsk, Russia* `2015 - 2016`.
-* Retail Store Owner, running my very own store in *Tomsk, Russia*. That was fun. `2015`.
-* Junior Software Developer at [Unitsys](http://unitsys.ru), *Tomsk, Russia* `2014`.
-* Scientific research at [TPU University's][university] school of Computer Science & Robotics `2010 - 2014`:
-  * Structured data depth sensors: Kinect, PrimeSense ([published article 1][kinect-article] and [2](https://www.science-education.ru/en/article/view?id=17554));
-  * Educational game stations ([NVIDIA's article][sand-box-article] about our project);
-  * Path finding algorithms ([published article][path-finding-article]);
-  * Robotics competitions;
-  * Embedded systems design summer schools at [TU Dresden](https://tu-dresden.de/).
+I'm a software engineer.
+I live in [Gdansk, Poland](https://en.wikipedia.org/wiki/Gda%C5%84sk).
 
 ## Projects
 
-I'm highly passionate about solving real problems with open-source projects. Check out what I've written on my [projects page]({{ site.url }}/projects/)
+* [`ilexconf`](https://github.com/ilexconf/ilexconf) *(Python)*
 
-[battle-city]: https://en.wikipedia.org/wiki/Battle_City_(video_game)
+  IlexConf is a lightweight configuration management library for Python. It solves the problem
+  of multiple source of configuration: config files, command line args, environment variables,
+  setting files in multiple formats, etc.
+
+  Check it out! It makes working with configs **so much easier**.
+
+* [`wutch`](https://github.com/vduseev/wutch) *(Python)*
+
+  Wutch is a Live Server which is able to: watch for changes in given directories, run a
+  shell command on each change, and display results from a different build directory in a browser.
+
+  It was written for Sphinx but can work with Jekyll and other static site generators
+  as well. The cool thing about it is that it **automatically refreshes the webpage**
+  on each build.
+
+* [`dbload`](https://github.com/dynatrace-oss/dbload) *(Python)*
+
+  DBLoad is a load generator for SQL databases. It support every database that has a JDBC driver.
+  You can use it to write and run scenarios that simulate real world load in the databases.
+
+* [`ded`](https://github.com/vduseev/ded) *(Python)*
+
+  Ded is a dependency de-duplication post renderer for Helm 3. Feed it as a post-renderer to Helm
+  and it will remove duplicated dependencies from deployment Helm generates during installation.
+
+  Extremely useful if you want to **split your Helm charts into small reusable blocks**.
+
+**No longer maintained**
+
+* [`Interactive sandbox`][sandbox] *(C++, OpenGL, GLSL, OpenNI, OpenCV)*
+
+  Educational station with interactive sand, built with Kinect, custom graphics engine, water simulation,
+  and developed as a university project. Sandbox has been presented at CDIO-2013 in MIT, Boston
+  ([NVIDIA's article][sandbox-nvidia] about our project).
+
+* [`s3push`](https://github.com/vduseev/s3push) *(Python)*
+
+  Painless upload of directories to AWS S3 with extensive support of different credential sources.
+
+* [`preserve-layout-plugin`](https://github.com/vduseev/preserve-layout-plugin) *(Java)*
+
+  IntelliJ IDEA plugin that allows you to import and export menu layouts.
+
+* [`jekyll-dry`](https://github.com/vduseev/jekyll-dry) *(Ruby)*
+
+  Don't Repeat Yourself plugin for Jekyll that lets you reuse any content across your website.
+
+## Papers
+
+* Path finding algorithms ([published article][path-finding-article]);
+* Structured data depth sensors: Kinect, PrimeSense ([published article 1][kinect-article]
+and [2](https://www.science-education.ru/en/article/view?id=17554));
+
+## Resume
+
+* Software Engineer at [Dynatrace](https://dynatrace.com), *Gdansk, Poland*, `2020-current`.
+* DevOps Engineer at [Assaia](https://assaia.com), *Gdansk, Poland*, `2020`.
+* DevOps Engineer at [SailPlay](https://sailplay.com), *Gdansk, Poland*, `2018-2019`.
+* Customer Success Engineer at [Behavox](http://behavox.com), *New York* `2017 - 2018`.
+* Development Team Lead at [SRI InfoTech](http://sriinfotech.com/), *Gdansk, Poland* `2016 - 2017`.
+* Software Developer at [SRI InfoTech](http://sriinfotech.com/), *Tomsk, Russia* `2015 - 2016`.
+* Co-founder of sports nutrition supplements store, *Tomsk, Russia*,`2015`.
+* Junior Software Developer at [Unitsys](http://unitsys.ru), *Tomsk, Russia* `2014`.
+* [TPU University][university], Bachelor of Computer Science `2010 - 2014`:
+
+I keep my [LinkedIn profile](https://linkedin.com/in/vduseev/) updated.
+LinkedIn provides a useful [save to PDF][linkedin-save-to-pdf] feature,
+if you ever need a copy of my resume in a printed format.
+
+
+
 [github]: https://github.com/vduseev
 [university]: https://tpu.ru/en
 [kinect-article]: http://ieeexplore.ieee.org/document/6986855/
-[sand-box-article]: http://www.nvidia.ru/object/sandbox-blog-ru.html
 [path-finding-article]: http://portal.tpu.ru/files/conferences/ctt/proceedings/ctt-2014-2-Tom.pdf
-
+[sandbox]: https://www.youtube.com/watch?v=0ytnQUbUD0o
+[sandbox-nvidia]: http://www.nvidia.ru/object/sandbox-blog-ru.html
+[linkedin-save-to-pdf]: https://www.linkedin.com/help/linkedin/answer/4281/printing-a-profile?lang=en
