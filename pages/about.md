@@ -7,9 +7,9 @@ is_profile: true
 
 <img src="{{ site.image }}" align="right" width="140" style="margin: 0px 20px">
 
-Hi, I'm Vagiz Duseev (Russian: Ваги́з Дусе́ев).
+Hi, I'm Vagiz Duseev.
 
-I'm a software engineer.
+I'm a software architect.
 I live in [Gdansk, Poland](https://en.wikipedia.org/wiki/Gda%C5%84sk).
 
 ## Projects
@@ -31,7 +31,7 @@ I live in [Gdansk, Poland](https://en.wikipedia.org/wiki/Gda%C5%84sk).
   as well. The cool thing about it is that it **automatically refreshes the webpage**
   on each build.
 
-* [`dbload`](https://github.com/dynatrace-oss/dbload) *(Python)*
+* [`dbload`](https://github.com/dynatrace-oss/db-load-generator) *(Python)*
 
   DBLoad is a load generator for SQL databases. It support every database that has a JDBC driver.
   You can use it to write and run scenarios that simulate real world load in the databases.
@@ -65,26 +65,28 @@ I live in [Gdansk, Poland](https://en.wikipedia.org/wiki/Gda%C5%84sk).
 
 ## Papers
 
-* Path finding algorithms ([published article][path-finding-article]);
-* Structured data depth sensors: Kinect, PrimeSense ([published article 1][kinect-article]
-and [2](https://www.science-education.ru/en/article/view?id=17554));
+* Structured data depth sensors: Kinect, PrimeSense ([published article][kinect-article]
+and [2](https://www.science-education.ru/en/article/view?id=17554))
 
-## Resume
+## Career
 
-* Software Engineer at [Dynatrace](https://dynatrace.com), *Gdansk, Poland*, `2020-current`.
+* Extensions Architect at [Dynatrace](https://dynatrace.com), *Gdansk, Poland*, `2021-current`.
+* Team Captain at [Dynatrace](https://dynatrace.com), *Gdansk, Poland*, `2021`.
+* Software Engineer at [Dynatrace](https://dynatrace.com), *Gdansk, Poland*, `2020`.
 * DevOps Engineer at [Assaia](https://assaia.com), *Gdansk, Poland*, `2020`.
 * DevOps Engineer at [SailPlay](https://sailplay.com), *Gdansk, Poland*, `2018-2019`.
-* Customer Success Engineer at [Behavox](http://behavox.com), *New York* `2017 - 2018`.
-* Development Team Lead at [SRI InfoTech](http://sriinfotech.com/), *Gdansk, Poland* `2016 - 2017`.
+* Customer Success Engineer at [Behavox](http://behavox.com), *New York, US* `2017 - 2018`.
+* Lead Development Engineer at [SRI InfoTech](http://sriinfotech.com/), *Gdansk, Poland* `2016 - 2017`.
 * Software Developer at [SRI InfoTech](http://sriinfotech.com/), *Tomsk, Russia* `2015 - 2016`.
-* Co-founder of sports nutrition supplements store, *Tomsk, Russia*,`2015`.
 * Junior Software Developer at [Unitsys](http://unitsys.ru), *Tomsk, Russia* `2014`.
-* [TPU University][university], Bachelor of Computer Science `2010 - 2014`:
+
+## Education
+
+* [National Research Tomsk Politechnic University][university], Bachelor of Computer Science `2010 - 2014`:
 
 I keep my [LinkedIn profile](https://linkedin.com/in/vduseev/) updated.
 LinkedIn provides a useful [save to PDF][linkedin-save-to-pdf] feature,
 if you ever need a copy of my resume in a printed format.
-
 
 
 [github]: https://github.com/vduseev
